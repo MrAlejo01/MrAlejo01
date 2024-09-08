@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,15 +44,26 @@ public class GenerarFacturaServlet extends HttpServlet {
             return;
         }
 
+        // Verificar que el cliente existe en la base de datos
         try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps = conexion.prepareStatement("INSERT INTO facturas (nombre, producto, detalles, precio) VALUES (?, ?, ?, ?)")) {
+             PreparedStatement psCliente = conexion.prepareStatement("SELECT * FROM clientes WHERE nombre = ?");
+             PreparedStatement psFactura = conexion.prepareStatement("INSERT INTO facturas (nombre, producto, detalles, precio) VALUES (?, ?, ?, ?)")) {
 
-            ps.setString(1, nombre);
-            ps.setString(2, producto);
-            ps.setString(3, detalles);
-            ps.setBigDecimal(4, precio);
+            psCliente.setString(1, nombre);
+            ResultSet rsCliente = psCliente.executeQuery();
 
-            ps.executeUpdate();
+            if (!rsCliente.next()) {
+                response.sendRedirect("error.jsp?error=Cliente%20no%20encontrado");
+                return;
+            }
+
+            // Insertar la factura en la base de datos
+            psFactura.setString(1, nombre);
+            psFactura.setString(2, producto);
+            psFactura.setString(3, detalles);
+            psFactura.setBigDecimal(4, precio);
+
+            psFactura.executeUpdate();
             response.sendRedirect("panel.jsp");
         } catch (SQLException e) {
             Logger.getLogger(GenerarFacturaServlet.class.getName()).log(Level.SEVERE, "Error al generar factura", e);
@@ -70,4 +82,3 @@ public class GenerarFacturaServlet extends HttpServlet {
         return "Generar Factura Servlet";
     }
 }
-

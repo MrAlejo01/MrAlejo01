@@ -23,13 +23,13 @@ public class RegistroClienteServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nombre = request.getParameter("nombre");
-        String direccion = request.getParameter("direccion");
-        String telefono = request.getParameter("telefono");
-        String correo = request.getParameter("correo");
-        String numeroCliente = request.getParameter("numeroCliente");
-        String tipoCliente = request.getParameter("tipoCliente");
-        String nit = request.getParameter("nit");
+        String nombre = request.getParameter("nombreRegistro");
+        String direccion = request.getParameter("direccionRegistro");
+        String telefono = request.getParameter("telefonoRegistro");
+        String correo = request.getParameter("correoRegistro");
+        String numeroCliente = request.getParameter("numeroClienteRegistro");
+        String tipoCliente = request.getParameter("tipoClienteRegistro");
+        String nit = request.getParameter("nitRegistro");
 
         // Validaciones básicas
         if (nombre == null || direccion == null || telefono == null || correo == null || numeroCliente == null || tipoCliente == null) {
@@ -38,8 +38,7 @@ public class RegistroClienteServlet extends HttpServlet {
         }
 
         // Inicializar la conexión y el PreparedStatement
-        try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps = conexion.prepareStatement("INSERT INTO clientes (nombre, direccion, telefono, correo, numeroCliente, tipoCliente, nit) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
+        try (Connection conexion = DriverManager.getConnection(URL, USER, PASSWORD); PreparedStatement ps = conexion.prepareStatement("INSERT INTO clientes (nombre, direccion, telefono, correo, numeroCliente, tipoCliente, nit) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
 
             ps.setString(1, nombre);
             ps.setString(2, direccion);
@@ -47,7 +46,7 @@ public class RegistroClienteServlet extends HttpServlet {
             ps.setString(4, correo);
             ps.setString(5, numeroCliente);
             ps.setString(6, tipoCliente);
-            ps.setString(7, nit);
+            ps.setString(7, nit != null ? nit : "");  // Usar una cadena vacía si nit es null
 
             ps.executeUpdate();
             response.sendRedirect("panel.jsp");

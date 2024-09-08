@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Inicio de Sesión</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <h1>Inicio de Sesión</h1>
-    <form action="login" method="post">
-        <div>
-            <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" name="usuario" required>
-        </div>
-        <div>
-            <label for="contraseña">Contraseña:</label>
-            <input type="password" id="contraseña" name="contraseña" required>
-        </div>
-        <button type="submit">Ingresar</button>
-    </form>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Inicio de Sesión</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+            >
 
-    <p><a href="#" onclick="mostrarContenido('registro-cliente')">Registro nuevo cliente</a></p>
-    <p><a href="#" onclick="mostrarContenido('recuperacion-contrasena')">Recuperar contraseña</a></p>
+    </head>
+    <body>
+        <h1>Inicio de Sesión</h1>
+        <form action="login" method="post">
+            <div>
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" name="usuario" required>
+            </div>
+            <div>
+                <label for="contraseña">Contraseña:</label>
+                <input type="password" id="contraseña" name="contraseña" required>
+            </div>
+            <button type="submit">Ingresar</button>
+        </form>
 
-    <script>
-        function mostrarContenido(id) {
-            // Implementa aquí la lógica para mostrar el contenido relacionado con el id
-            alert('Funcionalidad de mostrar contenido no implementada');
-        }
-    </script>
-</body>
+        <p><a href="#" onclick="mostrarContenido('registro-cliente')">Registro nuevo cliente</a></p>
+        <p><a href="#" onclick="mostrarContenido('recuperacion-contrasena')">Recuperar contraseña</a></p>
+
+        <script>
+            function mostrarContenido(id) {
+                // Oculta todos los contenidos
+                var secciones = document.querySelectorAll('.contenido');
+                secciones.forEach(function (seccion) {
+                    seccion.style.display = 'none'; // Oculta todas las secciones
+                });
+
+                // Muestra solo la sección con el id proporcionado
+                var contenido = document.getElementById(id);
+                if (contenido) {
+                    contenido.style.display = 'block'; // Muestra la sección correspondiente
+                } else {
+                    alert('Contenido no encontrado');
+                }
+            }
+        </script>
+
+    </body>
 </html>

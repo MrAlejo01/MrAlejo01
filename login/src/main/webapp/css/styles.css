@@ -126,20 +126,3 @@ form button:hover {
     background: #e7f0f7;
     border-radius: 8px;
 }
-
-/* Estilos para mensajes de error y éxito */
-.error-message {
-    color: #f00;
-    background: #fdd;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-}
-
-.success-message {
-    color: #0a0;
-    background: #dff0d8;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 20px;
-}

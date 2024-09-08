@@ -36,6 +36,12 @@
             <version>1.1</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>io.fintrospect</groupId>
+            <artifactId>fintrospect-gson_2.11</artifactId>
+            <version>15.1.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     
     <build>
